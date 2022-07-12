@@ -1,4 +1,3 @@
-# For debug mode only
 import json
 
 from telegram import Update

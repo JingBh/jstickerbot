@@ -14,9 +14,9 @@ def register(application: Application):
 
     application.add_handler(inline_handler)
 
-    if is_debug:
-        application.add_handler(sticker_handler),
-        application.add_handler(sticker_tagging_handler)
-        application.add_handler(sticker_tagging_get_handler)
-    else:
+    application.add_handler(sticker_handler),
+    application.add_handler(sticker_tagging_handler)
+    application.add_handler(sticker_tagging_get_handler)
+
+    if not is_debug:
         application.add_error_handler(error_handler)
