@@ -6,15 +6,21 @@ from os.path import dirname, join, realpath
 from typing import List, Tuple, Dict, Union, Sequence
 
 from telegram import Bot
+from telegram.ext import PicklePersistence
 
 data: List[Dict[str, Union[str, Sequence[str]]]] = []
+data_dir = realpath(join(dirname(dirname(__file__)), 'data'))
+
+
+def get_persistence():
+    path = join(data_dir, 'persistence.db')
+    return PicklePersistence(path)
 
 
 def initialize(bot: Bot):
     global data
 
     data = []
-    data_dir = realpath(join(dirname(dirname(__file__)), 'data'))
     for walk in os.walk(data_dir):
         for file in walk[2]:
             if not file.endswith('.json') or file.startswith('.'):

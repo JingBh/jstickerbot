@@ -4,6 +4,7 @@ from . import config, setup_logging, commands, database
 
 application = ApplicationBuilder() \
     .token(config.token) \
+    .persistence(database.get_persistence()) \
     .build()
 
 commands.register(application)
