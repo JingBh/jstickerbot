@@ -35,9 +35,13 @@ sticker_tagging_handler = MessageHandler(TEXT & ~COMMAND & ChatType.PRIVATE, sti
 
 
 async def sticker_tagging_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    stickers = context.user_data.get('editing_stickers', {})
-    code = json.dumps(stickers, indent=2, ensure_ascii=False)
-    await update.effective_message.reply_html(f'<code>{code}</code>')
+    if len(context.args) > 0 and context.args[0] == 'clear':
+        context.user_data['editing_stickers'] = {}
+        await update.effective_message.reply_text('OK')
+    else:
+        stickers = context.user_data.get('editing_stickers', {})
+        code = json.dumps(stickers, indent=2, ensure_ascii=False)
+        await update.effective_message.reply_html(f'<code>{code}</code>')
 
 
 sticker_tagging_get_handler = CommandHandler('edited', sticker_tagging_command, ChatType.PRIVATE)
